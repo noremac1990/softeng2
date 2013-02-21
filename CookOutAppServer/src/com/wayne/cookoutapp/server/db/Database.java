@@ -2,6 +2,7 @@ package com.wayne.cookoutapp.server.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+
+import com.wayne.cookoutapp.server.ComboRating;
 
 public class Database {
 	private Connection conn = null;
@@ -47,6 +50,30 @@ public class Database {
 		}
 		
 		return flavors;
+	}
+	
+	public ComboRating getComboRating(int flavor1, int flavor2) throws SQLException {
+		PreparedStatement pst = null;
+		try {
+			pst = conn.prepareStatement("SELECT times_rated, total_rating FROM flavor_combo_ratings" +
+					" WHERE (flavor_1 = ? AND flavor_2 = ?) OR (flavor_1 = ? AND flavor_2 = ?");
+			
+			pst.setInt(1, flavor1);
+			pst.setInt(2, flavor2);
+			pst.setInt(3, flavor2);
+			pst.setInt(4, flavor1);
+
+			ResultSet rs = pst.executeQuery();
+			
+			if(rs.next())
+				return new ComboRating(rs.getInt("times_rated"), rs.getInt("total_rating"));
+			else
+				return null;
+
+		} finally {
+			pst.close();
+		}
+		
 	}
 	
 	public void close() {
