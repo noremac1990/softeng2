@@ -56,7 +56,7 @@ public class Database {
 		PreparedStatement pst = null;
 		try {
 			pst = conn.prepareStatement("SELECT times_rated, total_rating FROM flavor_combo_ratings" +
-					" WHERE (flavor_1 = ? AND flavor_2 = ?) OR (flavor_1 = ? AND flavor_2 = ?");
+					" WHERE (flavor_1 = ? AND flavor_2 = ?) OR (flavor_1 = ? AND flavor_2 = ?)");
 			
 			pst.setInt(1, flavor1);
 			pst.setInt(2, flavor2);
@@ -71,7 +71,8 @@ public class Database {
 				return null;
 
 		} finally {
-			pst.close();
+			if(pst != null)
+				pst.close();
 		}
 		
 	}
