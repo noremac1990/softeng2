@@ -2,7 +2,11 @@ package com.wayne.cookoutapp.server.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -21,7 +25,28 @@ public class Database {
 		}
 		
 		conn = DriverManager.getConnection(CONNECTION_STRING);
+	}
+	
+	public Map<Integer, String> getFlavors() throws SQLException {
+		Map<Integer, String> flavors = new HashMap<Integer, String>();
+		Statement st = null;
 		
+		try {
+			st = conn.createStatement();
+			
+			ResultSet rs = st.executeQuery("SELECT * FROM flavors");
+			
+			while(rs.next()) {
+				flavors.put(rs.getInt("flavor_id"), rs.getString("flavor_name"));
+			}
+			
+			
+		} finally {
+			if(st != null)
+				st.close();
+		}
+		
+		return flavors;
 	}
 	
 	public void close() {
