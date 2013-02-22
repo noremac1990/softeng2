@@ -16,6 +16,8 @@ public class CheckersWindowFrame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	CheckersWindowPanel mainPanel;
 
 	public CheckersWindowFrame() {
 		super();
@@ -26,6 +28,11 @@ public class CheckersWindowFrame extends JFrame {
 		setTitle("Checkers");
 		setVisible(true);
 		
+		mainPanel = new CheckersWindowPanel();
+		
+		add(mainPanel);
+		
+		//pack();
 		setupMenu();
 	}
 	
