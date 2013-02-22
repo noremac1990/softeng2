@@ -8,9 +8,9 @@ import org.apache.log4j.Logger;
 import com.wayne.cookoutapp.server.db.Database;
 import com.wayne.cookoutapp.server.net.Server;
 
-public class CookOutApp {
+public class CookOutAppServer {
 
-	private static final Logger LOG = Logger.getLogger(CookOutApp.class);
+	private static final Logger LOG = Logger.getLogger(CookOutAppServer.class);
 	private static final short VERSION = 0001;
 	private static Server server = null;
 	private static Database database = null;

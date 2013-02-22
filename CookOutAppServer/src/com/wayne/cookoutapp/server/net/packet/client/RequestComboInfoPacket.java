@@ -1,7 +1,7 @@
 package com.wayne.cookoutapp.server.net.packet.client;
 
 import java.sql.SQLException;
-import com.wayne.cookoutapp.server.CookOutApp;
+import com.wayne.cookoutapp.server.CookOutAppServer;
 import com.wayne.cookoutapp.server.net.packet.server.BadPacket;
 import com.wayne.cookoutapp.server.net.packet.server.ComboInfoPacket;
 import com.wayne.cookoutapp.server.net.packet.server.ErrorMessagePacket;
@@ -17,7 +17,7 @@ public class RequestComboInfoPacket extends ClientPacket {
 		
 		try {
 			
-			return new ComboInfoPacket(CookOutApp.getDatabase().getComboRating(data[1], data[2]));
+			return new ComboInfoPacket(CookOutAppServer.getDatabase().getComboRating(data[1], data[2]));
 		} catch (SQLException e) {
 			return new ErrorMessagePacket("Server SQL error.");
 		}

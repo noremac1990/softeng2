@@ -1,6 +1,6 @@
 package com.wayne.cookoutapp.server.net.packet.client;
 
-import com.wayne.cookoutapp.server.CookOutApp;
+import com.wayne.cookoutapp.server.CookOutAppServer;
 import com.wayne.cookoutapp.server.net.packet.server.BadPacket;
 import com.wayne.cookoutapp.server.net.packet.server.FailPacket;
 import com.wayne.cookoutapp.server.net.packet.server.OKPacket;
@@ -18,7 +18,7 @@ public class IdentPacket extends ClientPacket {
 		
 		short version = (short) ((data[1] << 8) | (data[2]));
 		
-		if(version != CookOutApp.getVersion())
+		if(version != CookOutAppServer.getVersion())
 			return new FailPacket();
 		else
 			return new OKPacket();

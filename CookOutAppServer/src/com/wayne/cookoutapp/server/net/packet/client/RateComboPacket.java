@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import com.wayne.cookoutapp.server.ComboRating;
-import com.wayne.cookoutapp.server.CookOutApp;
+import com.wayne.cookoutapp.server.CookOutAppServer;
 import com.wayne.cookoutapp.server.net.packet.server.BadPacket;
 import com.wayne.cookoutapp.server.net.packet.server.ErrorMessagePacket;
 import com.wayne.cookoutapp.server.net.packet.server.FailPacket;
@@ -30,13 +30,13 @@ public class RateComboPacket extends ClientPacket {
 			if (rating < 0 || rating > 5)
 				return new FailPacket();
 
-			Map<Integer, String> flavors = CookOutApp.getDatabase()
+			Map<Integer, String> flavors = CookOutAppServer.getDatabase()
 					.getFlavors();
 
 			if (flavors.get(flavor1) == null || flavors.get(flavor2) == null)
 				return new FailPacket();
 			
-			CookOutApp.getDatabase().rateCombo(
+			CookOutAppServer.getDatabase().rateCombo(
 					new ComboRating(flavor1, flavor2, 1, rating));
 			
 		} catch (SQLException e) {

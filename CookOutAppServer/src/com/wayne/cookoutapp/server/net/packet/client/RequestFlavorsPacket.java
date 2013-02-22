@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import com.wayne.cookoutapp.server.CookOutApp;
+import com.wayne.cookoutapp.server.CookOutAppServer;
 import com.wayne.cookoutapp.server.net.packet.server.BadPacket;
 import com.wayne.cookoutapp.server.net.packet.server.ErrorMessagePacket;
 import com.wayne.cookoutapp.server.net.packet.server.FlavorsPacket;
@@ -23,7 +23,7 @@ public class RequestFlavorsPacket extends ClientPacket {
 		
 		try {
 			
-			return new FlavorsPacket(CookOutApp.getDatabase().getFlavors());
+			return new FlavorsPacket(CookOutAppServer.getDatabase().getFlavors());
 			
 		} catch (SQLException e) {
 			LOG.error("Failed to get flavors from database", e);
