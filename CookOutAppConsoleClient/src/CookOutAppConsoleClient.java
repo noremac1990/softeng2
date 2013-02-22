@@ -11,7 +11,7 @@ public class CookOutAppConsoleClient {
 		
 		socket.connect(new InetSocketAddress("localhost", 1939));
 		
-		socket.getOutputStream().write(new byte[] { 0x00, 0x00, 0x01 });
+		socket.getOutputStream().write(new byte[] { 0x04, 39, 0x10, 0 });
 		
 		byte[] data = new byte[1024];
 		
@@ -21,6 +21,10 @@ public class CookOutAppConsoleClient {
 		HexOutputStream hexOut = new HexOutputStream(System.out);
 		hexOut.write(Arrays.copyOf(data, size));
 		hexOut.flush();
+		
+		hexOut.close();
+		
+		socket.close();
 
 	}
 

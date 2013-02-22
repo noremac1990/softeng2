@@ -5,10 +5,6 @@ import com.wayne.cookoutapp.server.net.packet.server.ServerPacket;
 
 public class UnidentifiedPacket extends ClientPacket {
 
-	public UnidentifiedPacket() {
-
-	}
-
 	@Override
 	public ServerPacket getResponse() {
 		return new BadPacket();
