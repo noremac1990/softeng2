@@ -1,3 +1,4 @@
+package com.wayne.cookoutapp.server.db;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;

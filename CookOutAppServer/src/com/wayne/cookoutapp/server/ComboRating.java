@@ -45,4 +45,8 @@ public class ComboRating {
 	public void setFlavor2(int flavor2) {
 		this.flavor2 = flavor2;
 	}
+	
+	public double getRating() {
+		return (double) totalRating / timesRated;
+	}
 }
