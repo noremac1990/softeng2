@@ -13,7 +13,7 @@ import com.wayne.cookoutapp.server.net.packet.server.BadPacket;
 import com.wayne.cookoutapp.server.net.packet.server.FailPacket;
 import com.wayne.cookoutapp.server.net.packet.server.OKPacket;
 
-public class TestIdentPacket {
+public class PacketIdentTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -38,15 +38,15 @@ public class TestIdentPacket {
 		byte versionHi = (byte) ((CookOutAppServer.getVersion() & 0xFF00) >> 8);
 		byte versionLo = (byte) (CookOutAppServer.getVersion() & 0x00FF);
 		
-		testItem.setData(new byte[] { 0x00, versionHi, versionLo });
+		testItem.setData(new byte[] { IdentPacket.CLIENT_PACKET_HEADER_IDENT, versionHi, versionLo });
 		
 		assertTrue(testItem.getResponse() instanceof OKPacket);
 		
-		testItem.setData(new byte[] { 0x00, (byte) (versionHi + 1), versionLo });
+		testItem.setData(new byte[] { IdentPacket.CLIENT_PACKET_HEADER_IDENT, (byte) (versionHi + 1), versionLo });
 		
 		assertTrue(testItem.getResponse() instanceof FailPacket);
 		
-		testItem.setData(new byte[] { 0x00 });
+		testItem.setData(new byte[] { IdentPacket.CLIENT_PACKET_HEADER_IDENT });
 		
 		assertTrue(testItem.getResponse() instanceof BadPacket);
 		
