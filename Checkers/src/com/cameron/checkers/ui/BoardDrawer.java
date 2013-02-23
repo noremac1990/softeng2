@@ -9,8 +9,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.cameron.checkers.game.Board;
-import com.cameron.checkers.game.BoardSpace;
-import com.cameron.checkers.game.Checker;
+import com.cameron.checkers.game.pieces.BlackChecker;
+import com.cameron.checkers.game.spaces.BlackSpace;
+import com.cameron.checkers.game.spaces.Space;
 
 public class BoardDrawer {
 	
@@ -27,7 +28,7 @@ public class BoardDrawer {
 	
 	public void draw(Graphics g, Board board) {
 		
-		BoardSpace[][] spaces = board.getSpaces();
+		Space[][] spaces = board.getSpaces();
 		
 		drawSpaces(g, spaces);
 		
@@ -35,12 +36,12 @@ public class BoardDrawer {
 
 	}
 
-	private void drawCheckers(Graphics g, BoardSpace[][] spaces) {
+	private void drawCheckers(Graphics g, Space[][] spaces) {
 		for (int y = 0; y < spaces.length; y++) {
 			for (int x = 0; x < spaces.length; x++) {
-
+				
 				if (spaces[x][y].getChecker() != null) {
-					if (spaces[x][y].getChecker().getColor() == Checker.CHECKER_BLACK)
+					if (spaces[x][y].getChecker() instanceof BlackChecker)
 						g.drawImage(checkerBlack, x * SPACE_WIDTH, y * SPACE_WIDTH, null);
 					else
 						g.drawImage(checkerRed, x * SPACE_WIDTH, y * SPACE_WIDTH, null);
@@ -50,12 +51,12 @@ public class BoardDrawer {
 		}
 	}
 
-	private void drawSpaces(Graphics g, BoardSpace[][] spaces) {
+	private void drawSpaces(Graphics g, Space[][] spaces) {
 		for(int y = 0; y < spaces.length; y++)
 		{
 			for(int x = 0; x < spaces.length; x++)
 			{
-				if(spaces[x][y].getColor() == BoardSpace.SPACE_BLACK)
+				if(spaces[x][y] instanceof BlackSpace)
 					g.setColor(Color.BLACK);
 				else
 					g.setColor(Color.WHITE);

@@ -8,7 +8,8 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.cameron.checkers.game.Board;
+import com.cameron.checkers.game.GameDirector;
+import com.cameron.checkers.game.spaces.Space;
 
 public class CheckersWindowPanel extends JPanel implements MouseListener {
 
@@ -18,6 +19,8 @@ public class CheckersWindowPanel extends JPanel implements MouseListener {
 	private static final long serialVersionUID = 1L;
 
 	private BoardDrawer boardDrawer;
+	private GameDirector gameDirector;
+	private Space selectedSpace;
 
 	public CheckersWindowPanel() {
 		try {
@@ -27,14 +30,16 @@ public class CheckersWindowPanel extends JPanel implements MouseListener {
 			System.exit(0);
 		}
 		
-		addMouseListener(this);
+		gameDirector = new GameDirector();
+		
+		addMouseListener(this);		
 		
 	}
 	
 	@Override
 	public void paintComponent(Graphics g) {
 		
-		boardDrawer.draw(g, Board.getInstance());
+		boardDrawer.draw(g, gameDirector.getBoard());
 		
 	}
 
@@ -57,7 +62,41 @@ public class CheckersWindowPanel extends JPanel implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(selectedSpace == null) {
+			selectSpace(e.getX(), e.getY());
+		} else {
+			tryMove(e.getX(), e.getY());
+			selectedSpace = null;
+		}
+		
+	}
+
+	private void tryMove(int x, int y) {
+		
+		Space to = gameDirector.getBoard().getSpaces()[x / 64][y / 64];
+		if(!gameDirector.movePossible(selectedSpace, to))
+		{
+			JOptionPane.showMessageDialog(this, "Not possible");
+			return;
+		}
+		
+		gameDirector.doMove(selectedSpace, to);
+		
+		selectedSpace = null;
+		
+		repaint();
+		
+	}
+
+	private void selectSpace(int x, int y) {
+		
+		Space space = gameDirector.getBoard().getSpaces()[x / 64][y / 64];
+		
+		if(!space.hasChecker())
+			return;
+		
+		selectedSpace = space;
+		
 		
 	}
 
