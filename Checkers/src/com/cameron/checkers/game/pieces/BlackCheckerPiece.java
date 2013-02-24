@@ -9,7 +9,7 @@ public class BlackCheckerPiece extends BlackChecker {
 
 	@Override
 	public boolean verticalDirectionCheck(int y) {
-		if(y > positionY)
+		if(y < positionY)
 			return true;
 		
 		return false;

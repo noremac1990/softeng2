@@ -62,7 +62,7 @@ public class Board {
 		for(int y = 0; y < 3; y++) {
 			for(int x = 0; x < width; x++) {
 				if(col == 0)
-					spaces[x][y].setChecker(new BlackCheckerPiece(x, y));
+					spaces[x][y].setChecker(new RedCheckerPiece(x, y));
 				
 				col = 1 - col;
 			}
@@ -73,7 +73,7 @@ public class Board {
 		for(int y = height - 1; y > 4; y--) {
 			for(int x = 0; x < width; x++) {
 				if(col == 0)
-					spaces[x][y].setChecker(new RedCheckerPiece(x, y));
+					spaces[x][y].setChecker(new BlackCheckerPiece(x, y));
 				
 				col = 1 - col;
 			}

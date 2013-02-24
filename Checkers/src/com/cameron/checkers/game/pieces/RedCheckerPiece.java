@@ -12,7 +12,7 @@ public class RedCheckerPiece extends RedChecker {
 	public boolean verticalDirectionCheck(int y) {
 		
 		// red checkers can only move up
-		if(y < positionY)
+		if(y > positionY)
 			return true;
 		
 		return false;
