@@ -24,15 +24,15 @@ public class CheckersWindowFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocationByPlatform(true);
-		setSize(800, 600);
+		setSize(800, 560);
 		setTitle("Checkers");
 		setVisible(true);
+		
+		setupMenu();
 		
 		mainPanel = new CheckersWindowPanel();
 		
 		add(mainPanel);
-		
-		setupMenu();
 		
 		repaint();
 	}

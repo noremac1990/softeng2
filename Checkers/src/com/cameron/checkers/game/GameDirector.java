@@ -40,9 +40,9 @@ public class GameDirector {
 		
 		from.setChecker(null);
 		
-		if(to.getY() == 0 && c instanceof RedChecker) {
+		if(to.getY() == board.getBoardHeight() - 1 && c instanceof RedChecker) {
 			c = new RedKingChecker(to.getX(), to.getY());
-		} else if(to.getY() == board.getBoardHeight() - 1
+		} else if(to.getY() == 0
 				&& c instanceof BlackChecker) {
 			c = new BlackKingChecker(to.getX(), to.getY());
 		} else {
@@ -98,8 +98,12 @@ public class GameDirector {
 		if(!middle.hasChecker())
 			return null;
 		
-		if(middle.getChecker().getClass().equals(from.getChecker().getClass()))
+		if(middle.getChecker() instanceof BlackChecker && from.getChecker() instanceof BlackChecker)
 			return null;
+		
+		if(middle.getChecker() instanceof RedChecker && from.getChecker() instanceof RedChecker)
+			return null;
+		
 		
 		return middle;
 	}
