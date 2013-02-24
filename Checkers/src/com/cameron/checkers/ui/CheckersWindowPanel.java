@@ -1,11 +1,11 @@
 package com.cameron.checkers.ui;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -13,7 +13,7 @@ import com.cameron.checkers.game.GameDirector;
 import com.cameron.checkers.game.move.BlackMove;
 import com.cameron.checkers.game.spaces.Space;
 
-public class CheckersWindowPanel extends JPanel implements MouseListener {
+public class CheckersWindowPanel extends JPanel {
 
 	/**
 	 * 
@@ -30,6 +30,7 @@ public class CheckersWindowPanel extends JPanel implements MouseListener {
 	private Space selectedSpace;
 
 	public CheckersWindowPanel() {
+		super();
 		try {
 			boardDrawer = new BoardDrawer(this);
 		} catch (IOException e) {
@@ -37,9 +38,31 @@ public class CheckersWindowPanel extends JPanel implements MouseListener {
 			System.exit(0);
 		}
 		
+		setPreferredSize(new Dimension(800, 512));
+		
 		gameDirector = new GameDirector();
 		
-		addMouseListener(this);
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.getX() >= boardDrawer.getSpaceWidth() * gameDirector.getBoard().getBoardWidth())
+					return;
+				
+				if(e.getY() >= boardDrawer.getSpaceHeight() * gameDirector.getBoard().getBoardHeight())
+					return;
+				
+				
+				if(selectedSpace == null) {
+					selectSpace(e.getX(), e.getY());
+				} else {
+					tryMove(e.getX(), e.getY());
+					selectedSpace = null;
+				}
+				
+				repaint();
+				super.mousePressed(e);
+			}
+		});
 		
 		repaint();
 		
@@ -65,44 +88,6 @@ public class CheckersWindowPanel extends JPanel implements MouseListener {
 		repaint();
 	}
 	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		
-		if(e.getX() >= boardDrawer.getSpaceWidth() * gameDirector.getBoard().getBoardWidth())
-			return;
-		
-		if(e.getY() >= boardDrawer.getSpaceHeight() * gameDirector.getBoard().getBoardHeight())
-			return;
-		
-		
-		if(selectedSpace == null) {
-			selectSpace(e.getX(), e.getY());
-		} else {
-			tryMove(e.getX(), e.getY());
-			selectedSpace = null;
-		}
-		
-		repaint();
-		
-		
-	}
 
 	private void tryMove(int x, int y) {
 		
@@ -136,9 +121,4 @@ public class CheckersWindowPanel extends JPanel implements MouseListener {
 		
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 }

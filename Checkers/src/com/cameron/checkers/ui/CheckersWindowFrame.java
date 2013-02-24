@@ -1,106 +1,90 @@
 package com.cameron.checkers.ui;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import javax.swing.JDialog;
+import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.WindowConstants;
 
 public class CheckersWindowFrame extends JFrame {
-	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5032226972259567886L;
 	
+
 	CheckersWindowPanel mainPanel;
 
 	public CheckersWindowFrame() {
-		super();
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		super("Checkers");
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		setResizable(false);
 		setLocationByPlatform(true);
-		setSize(800, 560);
-		setTitle("Checkers");
-		setVisible(true);
 		
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				CheckersWindowFrame.this.setVisible(false);
+				CheckersWindowFrame.this.dispose();
+			}
+		});
+
 		setupMenu();
-		
+
 		mainPanel = new CheckersWindowPanel();
 		
-		add(mainPanel);
+		setContentPane(mainPanel);
+		
+		pack();
 		
 		repaint();
 	}
-	
-	private class MenuExitAction implements ActionListener {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			close();
-		}
-		
-	}
-	
-	private class MenuAboutAction implements ActionListener {
-		CheckersWindowFrame parent;
-		
-		MenuAboutAction(CheckersWindowFrame parent) {
-			this.parent = parent;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			JDialog aboutDialog = new JDialog(parent, true);
-			
-			aboutDialog.setSize(300, 200);
-			aboutDialog.setResizable(false);
-			aboutDialog.setVisible(true);
-
-		}
-		
-	}
-	
-	private class MenuNewGameAction implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			mainPanel.newGame();
-		}
-		
-	}
 
 	private void setupMenu() {
-		
+
 		JMenuBar menu = new JMenuBar();
-		
+
 		JMenu game = new JMenu("Game");
 		menu.add(game);
 
-		
-		JMenuItem newGame = new JMenuItem("New Game");
-		newGame.addActionListener(new MenuNewGameAction());
+		JMenuItem newGame = new JMenuItem(new AbstractAction("New Game") {
+			private static final long serialVersionUID = 5378747084407111579L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CheckersWindowFrame.this.mainPanel.newGame();
+			}
+		});
 		game.add(newGame);
-		
-		JMenuItem exit = new JMenuItem("Exit");
-		exit.addActionListener(new MenuExitAction());
+
+		JMenuItem exit = new JMenuItem(new AbstractAction("Exit") {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -5900715805110715093L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispatchEvent(new WindowEvent(CheckersWindowFrame.this,
+						WindowEvent.WINDOW_CLOSING));
+			}
+		});
 		game.add(exit);
-		
+
 		JMenu help = new JMenu("Help");
 		menu.add(help);
-		
+
 		JMenuItem about = new JMenuItem("About");
-		about.addActionListener(new MenuAboutAction(this));
 		help.add(about);
-		
+
 		setJMenuBar(menu);
 	}
-	
-	protected void close() {
-		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-	}
+
 }
