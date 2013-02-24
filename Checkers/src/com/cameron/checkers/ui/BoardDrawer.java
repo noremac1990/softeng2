@@ -9,21 +9,44 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.cameron.checkers.game.Board;
-import com.cameron.checkers.game.pieces.BlackChecker;
+import com.cameron.checkers.game.pieces.BlackCheckerPiece;
+import com.cameron.checkers.game.pieces.BlackKingChecker;
+import com.cameron.checkers.game.pieces.Checker;
+import com.cameron.checkers.game.pieces.RedCheckerPiece;
+import com.cameron.checkers.game.pieces.RedKingChecker;
 import com.cameron.checkers.game.spaces.BlackSpace;
 import com.cameron.checkers.game.spaces.Space;
 
 public class BoardDrawer {
 	
-	private static final int SPACE_WIDTH = 64;
-	private static final int SPACE_HEIGHT = 64;
+	private int spaceWidth = 64;
+	private int spaceHeight = 64;
 
 	private BufferedImage checkerRed;
 	private BufferedImage checkerBlack;
+	private BufferedImage checkerKingRed;
+	private BufferedImage checkerKingBlack;
+	private BufferedImage selectedSquare;
 	
-	public BoardDrawer() throws IOException {
+	CheckersWindowPanel panel;
+	
+	public BoardDrawer(CheckersWindowPanel panel) throws IOException {
+
+		this(panel, 64, 64);
+	}
+	
+	public BoardDrawer(CheckersWindowPanel panel, int spaceWidth, int spaceHeight) throws IOException {
+		
+		this.spaceWidth = spaceWidth;
+		this.spaceHeight = spaceHeight;
+		
 		checkerRed = ImageIO.read(new File("res/checkerRed.png"));
 		checkerBlack = ImageIO.read(new File("res/checkerBlack.png"));
+		selectedSquare = ImageIO.read(new File("res/selectedSquare.png"));
+		checkerKingRed = ImageIO.read(new File("res/checkerKingRed.png"));
+		checkerKingBlack = ImageIO.read(new File("res/checkerKingBlack.png"));
+		
+		this.panel = panel;
 	}
 	
 	public void draw(Graphics g, Board board) {
@@ -33,22 +56,54 @@ public class BoardDrawer {
 		drawSpaces(g, spaces);
 		
 		drawCheckers(g, spaces);
+		
+		drawSelection(g, panel.getSelectedSpace());
 
 	}
 
+	private void drawSelection(Graphics g, Space selectedSpace) {
+		
+		if(selectedSpace == null)
+			return;
+		
+		g.drawImage(selectedSquare, selectedSpace.getX() * spaceWidth, selectedSpace.getY() * spaceHeight, null);
+		
+	}
+
+	public int getSpaceWidth() {
+		return spaceWidth;
+	}
+
+	public int getSpaceHeight() {
+		return spaceHeight;
+	}
+
 	private void drawCheckers(Graphics g, Space[][] spaces) {
+		
+		
 		for (int y = 0; y < spaces.length; y++) {
 			for (int x = 0; x < spaces.length; x++) {
-				
-				if (spaces[x][y].getChecker() != null) {
-					if (spaces[x][y].getChecker() instanceof BlackChecker)
-						g.drawImage(checkerBlack, x * SPACE_WIDTH, y * SPACE_WIDTH, null);
-					else
-						g.drawImage(checkerRed, x * SPACE_WIDTH, y * SPACE_WIDTH, null);
-				}
-			}
 
+				Checker checker = spaces[x][y].getChecker();
+
+				if (checker == null)
+					continue;
+
+				if (checker instanceof BlackCheckerPiece)
+					g.drawImage(checkerBlack, x * spaceWidth, y * spaceWidth,
+							null);
+				else if (checker instanceof RedCheckerPiece)
+					g.drawImage(checkerRed, x * spaceWidth, y * spaceWidth,
+							null);
+				else if (checker instanceof BlackKingChecker)
+					g.drawImage(checkerKingBlack, x * spaceWidth, y
+							* spaceWidth, null);
+				else if (checker instanceof RedKingChecker)
+					g.drawImage(checkerKingRed, x * spaceWidth, y
+							* spaceWidth, null);
+			}
 		}
+
 	}
 
 	private void drawSpaces(Graphics g, Space[][] spaces) {
@@ -61,7 +116,7 @@ public class BoardDrawer {
 				else
 					g.setColor(Color.WHITE);
 		
-				g.fillRect(x * SPACE_WIDTH, y * SPACE_WIDTH, SPACE_WIDTH, SPACE_HEIGHT);
+				g.fillRect(x * spaceWidth, y * spaceWidth, spaceWidth, spaceHeight);
 			}
 		}
 		

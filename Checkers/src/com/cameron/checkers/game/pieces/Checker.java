@@ -33,7 +33,6 @@ public abstract class Checker {
 	}
 	
 	public boolean canMove(Board board, Space from, Space to) {
-		Space[][] spaces = board.getSpaces();
 		
 		// check bounds
 		if(to.getX() < 0 || to.getX() >= board.getBoardWidth())
@@ -49,10 +48,6 @@ public abstract class Checker {
 		// make sure no checker in way
 		if(to.hasChecker())
 			return false;
-		
-		
-		// this part sucks
-		
 		
 		
 		return true;

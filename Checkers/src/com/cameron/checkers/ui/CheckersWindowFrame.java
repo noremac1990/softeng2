@@ -32,21 +32,16 @@ public class CheckersWindowFrame extends JFrame {
 		
 		add(mainPanel);
 		
-		//pack();
 		setupMenu();
+		
+		repaint();
 	}
 	
 	private class MenuExitAction implements ActionListener {
-
-		CheckersWindowFrame parent;
-		
-		MenuExitAction(CheckersWindowFrame parent) {
-			this.parent = parent;
-		}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			parent.close();
+			close();
 		}
 		
 	}
@@ -69,6 +64,15 @@ public class CheckersWindowFrame extends JFrame {
 		}
 		
 	}
+	
+	private class MenuNewGameAction implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			mainPanel.newGame();
+		}
+		
+	}
 
 	private void setupMenu() {
 		
@@ -76,9 +80,14 @@ public class CheckersWindowFrame extends JFrame {
 		
 		JMenu game = new JMenu("Game");
 		menu.add(game);
+
+		
+		JMenuItem newGame = new JMenuItem("New Game");
+		newGame.addActionListener(new MenuNewGameAction());
+		game.add(newGame);
 		
 		JMenuItem exit = new JMenuItem("Exit");
-		exit.addActionListener(new MenuExitAction(this));
+		exit.addActionListener(new MenuExitAction());
 		game.add(exit);
 		
 		JMenu help = new JMenu("Help");

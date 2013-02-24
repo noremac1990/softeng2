@@ -1,10 +1,9 @@
 package com.cameron.checkers.game.pieces;
 
-public class RedKingChecker extends Checker {
+public class RedKingChecker extends RedChecker {
 
 	public RedKingChecker(int x, int y) {
 		super(x, y);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

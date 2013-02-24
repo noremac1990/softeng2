@@ -1,7 +1,7 @@
 package com.cameron.checkers.game;
 
-import com.cameron.checkers.game.pieces.BlackChecker;
-import com.cameron.checkers.game.pieces.RedChecker;
+import com.cameron.checkers.game.pieces.BlackCheckerPiece;
+import com.cameron.checkers.game.pieces.RedCheckerPiece;
 import com.cameron.checkers.game.spaces.BlackSpace;
 import com.cameron.checkers.game.spaces.Space;
 import com.cameron.checkers.game.spaces.WhiteSpace;
@@ -11,8 +11,8 @@ public class Board {
 	private static final int DEFAULT_BOARD_WIDTH = 8;
 	private static final int DEFAULT_BOARD_HEIGHT = 8;
 	
-	private int width = DEFAULT_BOARD_WIDTH;
-	private int height = DEFAULT_BOARD_HEIGHT;
+	private int width;
+	private int height;
 	
 	private Space[][] spaces;
 	
@@ -20,8 +20,15 @@ public class Board {
 		return spaces;
 	}
 
-	public Board() {
+	public Board(int width, int height) {
+		this.width = width;
+		this.height = height;
+		
 		newGame();
+	}
+	
+	public Board() {
+		this(DEFAULT_BOARD_WIDTH, DEFAULT_BOARD_HEIGHT);
 	}
 	
 	public int getBoardWidth() {
@@ -55,7 +62,7 @@ public class Board {
 		for(int y = 0; y < 3; y++) {
 			for(int x = 0; x < width; x++) {
 				if(col == 0)
-					spaces[x][y].setChecker(new BlackChecker(x, y));
+					spaces[x][y].setChecker(new BlackCheckerPiece(x, y));
 				
 				col = 1 - col;
 			}
@@ -66,7 +73,7 @@ public class Board {
 		for(int y = height - 1; y > 4; y--) {
 			for(int x = 0; x < width; x++) {
 				if(col == 0)
-					spaces[x][y].setChecker(new RedChecker(x, y));
+					spaces[x][y].setChecker(new RedCheckerPiece(x, y));
 				
 				col = 1 - col;
 			}

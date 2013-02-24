@@ -1,8 +1,8 @@
 package com.cameron.checkers.game.pieces;
 
-public class BlackKingChecker extends Checker {
+public class BlackKingChecker extends BlackChecker {
 
-	protected BlackKingChecker(int x, int y) {
+	public BlackKingChecker(int x, int y) {
 		super(x, y);
 		// TODO Auto-generated constructor stub
 	}
