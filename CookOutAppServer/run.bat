@@ -1,0 +1,1 @@
+java -cp ".;./lib/log4j-1.2.17.jar;./lib/sqlite-jdbc-3.7.2.jar;./bin" com.wayne.cookoutapp.server.CookOutAppServer
