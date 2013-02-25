@@ -27,8 +27,9 @@ public class Connection {
 		if(size <= 0)
 			return;
 		
+		data = Arrays.copyOf(data, size);
 		
-		ClientPacket clientPacket = ClientPacket.parseIncomingPacket(Arrays.copyOf(data, size));
+		ClientPacket clientPacket = ClientPacket.parseIncomingPacket(data);
 		
 		LOG.debug("Recieved data: " + ByteToHexString.convert(data));
 		
