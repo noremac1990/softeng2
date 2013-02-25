@@ -9,6 +9,7 @@ import javax.xml.bind.DatatypeConverter;
 import org.apache.log4j.Logger;
 
 import com.wayne.cookoutapp.server.net.packet.client.ClientPacket;
+import com.wayne.cookoutapp.server.util.ByteToHexString;
 
 public class Connection {
 	private Socket socket;
@@ -26,13 +27,14 @@ public class Connection {
 		if(size <= 0)
 			return;
 		
-		LOG.debug("Recieved data: " + DatatypeConverter.printHexBinary(data));
 		
 		ClientPacket clientPacket = ClientPacket.parseIncomingPacket(Arrays.copyOf(data, size));
 		
+		LOG.debug("Recieved data: " + ByteToHexString.convert(data));
+		
 		byte[] response = clientPacket.getResponse().getData();
 		
-		LOG.debug("Sent data: " + DatatypeConverter.printHexBinary(data));
+		LOG.debug("Sent data: " + ByteToHexString.convert(response));
 		
 		socket.getOutputStream().write(response);
 		
