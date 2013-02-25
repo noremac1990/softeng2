@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Arrays;
 
-import javax.xml.bind.DatatypeConverter;
 
 import org.apache.log4j.Logger;
 
