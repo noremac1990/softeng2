@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project CookOutAppServer with libraries in sub-folder">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="C:/Users/Cameron/git/softeng2/CookOutAppServer/CookOutAppServer.jar">
+            <manifest>
+                <attribute name="Main-Class" value="com.wayne.cookoutapp.server.CookOutAppServer"/>
+                <attribute name="Class-Path" value=". CookOutAppServer_lib/log4j-1.2.17.jar CookOutAppServer_lib/sqlite-jdbc-3.7.2.jar CookOutAppServer_lib/junit.jar CookOutAppServer_lib/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
+            </manifest>
+            <fileset dir="C:/Users/Cameron/git/softeng2/CookOutAppServer/bin"/>
+        </jar>
+        <delete dir="C:/Users/Cameron/git/softeng2/CookOutAppServer/CookOutAppServer_lib"/>
+        <mkdir dir="C:/Users/Cameron/git/softeng2/CookOutAppServer/CookOutAppServer_lib"/>
+        <copy file="C:/Users/Cameron/git/softeng2/CookOutAppServer/lib/log4j-1.2.17.jar" todir="C:/Users/Cameron/git/softeng2/CookOutAppServer/CookOutAppServer_lib"/>
+        <copy file="C:/Users/Cameron/git/softeng2/CookOutAppServer/lib/sqlite-jdbc-3.7.2.jar" todir="C:/Users/Cameron/git/softeng2/CookOutAppServer/CookOutAppServer_lib"/>
+        <copy file="C:/Users/Cameron/git/softeng2/CookOutAppServer/lib/junit.jar" todir="C:/Users/Cameron/git/softeng2/CookOutAppServer/CookOutAppServer_lib"/>
+        <copy file="C:/Users/Cameron/git/softeng2/CookOutAppServer/lib/org.hamcrest.core_1.1.0.v20090501071000.jar" todir="C:/Users/Cameron/git/softeng2/CookOutAppServer/CookOutAppServer_lib"/>
+    </target>
+</project>
