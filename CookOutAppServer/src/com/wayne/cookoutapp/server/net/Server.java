@@ -25,7 +25,12 @@ public class Server {
 		while(running) {
 			try {
 				Connection con = new Connection(serverSocket.accept());
+				
+				LOG.info("New connection from " + con);
+				
 				con.handle();
+				
+				LOG.info("Closing connection to " + con);
 				con.close();
 			} catch (SocketTimeoutException e) {
 				continue;

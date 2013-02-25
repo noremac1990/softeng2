@@ -30,7 +30,7 @@ public class CookOutAppConsoleClient {
 			
 			Socket socket = new Socket();
 			
-			socket.connect(new InetSocketAddress("localhost", 1939));
+			socket.connect(new InetSocketAddress("ec2-54-234-213-211.compute-1.amazonaws.com", 1939));
 			
 			socket.getOutputStream().write(packet);
 			
