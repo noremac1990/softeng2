@@ -7,18 +7,25 @@ import java.net.SocketTimeoutException;
 import org.apache.log4j.Logger;
 
 public class Server {
-	private final int DEFAULT_PORT = 1939;
+	private final static int DEFAULT_PORT = 1939;
 	private final Logger LOG = Logger.getLogger(Server.class);
 	
 	private ServerSocket serverSocket = null;
 	private boolean running = true;
+	private final int port;
 	
 	public Server() {
+		this(DEFAULT_PORT);
 		
 	}
 	
+	public Server(int port) {
+		this.port = port;
+	}
+	
+	
 	public void run() throws IOException {
-		serverSocket = new ServerSocket(DEFAULT_PORT);
+		serverSocket = new ServerSocket(port);
 		
 		serverSocket.setSoTimeout(1000);
 		

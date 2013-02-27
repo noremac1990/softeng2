@@ -13,7 +13,7 @@ import com.wayne.cookoutapp.server.net.packet.server.BadPacket;
 import com.wayne.cookoutapp.server.net.packet.server.FailPacket;
 import com.wayne.cookoutapp.server.net.packet.server.OKPacket;
 
-public class PacketIdentTest {
+public class IdentPacketTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
