@@ -24,7 +24,7 @@ public class RequestComboInfoPacket extends ClientPacket {
 			Map<Integer, String> flavors = CookOutAppServer.getDatabase()
 					.getFlavors();
 
-			if (flavors.get(flavor1) == null || flavors.get(flavor2) == null)
+			if (flavors.get(Integer.valueOf(flavor1)) == null || flavors.get(Integer.valueOf(flavor2)) == null)
 				return new ErrorMessagePacket("Flavors don't exist.");
 			
 			return new ComboInfoPacket(CookOutAppServer.getDatabase().getComboRating(flavor1, flavor2));

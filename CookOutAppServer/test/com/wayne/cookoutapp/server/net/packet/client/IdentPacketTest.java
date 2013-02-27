@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.wayne.cookoutapp.server.CookOutAppServer;
 import com.wayne.cookoutapp.server.net.packet.server.BadPacket;
+import com.wayne.cookoutapp.server.net.packet.server.ComboInfoPacket;
 import com.wayne.cookoutapp.server.net.packet.server.FailPacket;
 import com.wayne.cookoutapp.server.net.packet.server.OKPacket;
 
@@ -33,22 +34,21 @@ public class IdentPacketTest {
 
 	@Test
 	public final void testGetResponse() {
-		IdentPacket testItem = new IdentPacket();
+		IdentPacket packet = new IdentPacket();
 		
 		byte versionHi = (byte) ((CookOutAppServer.getVersion() & 0xFF00) >> 8);
 		byte versionLo = (byte) (CookOutAppServer.getVersion() & 0x00FF);
 		
-		testItem.setData(new byte[] { IdentPacket.CLIENT_PACKET_HEADER_IDENT, versionHi, versionLo });
+		packet.setData(new byte[] { IdentPacket.CLIENT_PACKET_HEADER_IDENT, versionHi, versionLo });
+		assertEquals(OKPacket.class, packet.getResponse().getClass());
 		
-		assertTrue(testItem.getResponse() instanceof OKPacket);
+		packet.setData(new byte[] { IdentPacket.CLIENT_PACKET_HEADER_IDENT, (byte) (versionHi + 1), versionLo });	
+		assertEquals(FailPacket.class, packet.getResponse().getClass());
 		
-		testItem.setData(new byte[] { IdentPacket.CLIENT_PACKET_HEADER_IDENT, (byte) (versionHi + 1), versionLo });
+		packet.setData(new byte[] { IdentPacket.CLIENT_PACKET_HEADER_IDENT });	
+		assertEquals(BadPacket.class, packet.getResponse().getClass());
 		
-		assertTrue(testItem.getResponse() instanceof FailPacket);
 		
-		testItem.setData(new byte[] { IdentPacket.CLIENT_PACKET_HEADER_IDENT });
-		
-		assertTrue(testItem.getResponse() instanceof BadPacket);
 		
 	}
 

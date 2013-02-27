@@ -10,25 +10,25 @@ public class ClientPacketTest {
 	public final void testParseIncomingPacket() {
 
 		ClientPacket packet = ClientPacket.parseIncomingPacket(new byte[] { ClientPacket.CLIENT_PACKET_HEADER_IDENT });
-		assertTrue(packet instanceof IdentPacket);
+		assertEquals(IdentPacket.class, packet.getClass());
 		
 		packet = ClientPacket.parseIncomingPacket(new byte[] { ClientPacket.CLIENT_PACKET_REQUEST_FLAVORS });
-		assertTrue(packet instanceof RequestFlavorsPacket);
+		assertEquals(RequestFlavorsPacket.class, packet.getClass());
 		
 		packet = ClientPacket.parseIncomingPacket(new byte[] { ClientPacket.CLIENT_PACKET_REQUEST_COMBO_INFO });
-		assertTrue(packet instanceof RequestComboInfoPacket);
+		assertEquals(RequestComboInfoPacket.class, packet.getClass());
 		
 		packet = ClientPacket.parseIncomingPacket(new byte[] { ClientPacket.CLIENT_PACKET_SHUTDOWN_SERVER });
-		assertTrue(packet instanceof ShutdownPacket);
+		assertEquals(ShutdownPacket.class, packet.getClass());
 		
 		packet = ClientPacket.parseIncomingPacket(new byte[] { ClientPacket.CLIENT_PACKET_SEND_COMBO_RATING });
-		assertTrue(packet instanceof RateComboPacket);
+		assertEquals(RateComboPacket.class, packet.getClass());
 		
 		packet = ClientPacket.parseIncomingPacket(new byte[] { ClientPacket.CLIENT_PACKET_REQUEST_TOP_COMBOS });
-		assertTrue(packet instanceof RequestTopCombosPacket);
+		assertEquals(RequestTopCombosPacket.class, packet.getClass());
 		
 		packet = ClientPacket.parseIncomingPacket(new byte[] { 0x26 });
-		assertTrue(packet instanceof UnidentifiedPacket);
+		assertEquals(UnidentifiedPacket.class, packet.getClass());
 		
 	}
 
