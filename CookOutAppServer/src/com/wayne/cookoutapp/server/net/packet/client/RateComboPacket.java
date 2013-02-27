@@ -7,7 +7,6 @@ import com.wayne.cookoutapp.server.ComboRating;
 import com.wayne.cookoutapp.server.CookOutAppServer;
 import com.wayne.cookoutapp.server.net.packet.server.BadPacket;
 import com.wayne.cookoutapp.server.net.packet.server.ErrorMessagePacket;
-import com.wayne.cookoutapp.server.net.packet.server.FailPacket;
 import com.wayne.cookoutapp.server.net.packet.server.OKPacket;
 import com.wayne.cookoutapp.server.net.packet.server.ServerPacket;
 
@@ -25,16 +24,16 @@ public class RateComboPacket extends ClientPacket {
 		try {
 
 			if (flavor1 == flavor2)
-				return new FailPacket();
+				return new ErrorMessagePacket("Flavors are the same.");
 			
 			if (rating < 0 || rating > 5)
-				return new FailPacket();
+				return new ErrorMessagePacket("Rating must be from 0 to 5.");
 
 			Map<Integer, String> flavors = CookOutAppServer.getDatabase()
 					.getFlavors();
 
 			if (flavors.get(flavor1) == null || flavors.get(flavor2) == null)
-				return new FailPacket();
+				return new ErrorMessagePacket("Flavors don't exist.");
 			
 			CookOutAppServer.getDatabase().rateCombo(
 					new ComboRating(flavor1, flavor2, 1, rating));

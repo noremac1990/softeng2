@@ -32,6 +32,10 @@ public class Database {
 		conn = DriverManager.getConnection(CONNECTION_STRING);
 	}
 	
+	public Database(Connection connection) throws SQLException, ClassNotFoundException {
+		this.conn = connection;
+	}
+	
 	public Map<Integer, String> getFlavors() throws SQLException {
 		Map<Integer, String> flavors = new HashMap<Integer, String>();
 		Statement st = null;

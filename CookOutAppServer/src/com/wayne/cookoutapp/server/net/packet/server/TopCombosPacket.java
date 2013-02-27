@@ -14,8 +14,9 @@ public class TopCombosPacket extends ServerPacket {
 		DataOutputStream resp = new DataOutputStream(bos);
 		
 		try {
+			resp.writeByte(SERVER_PACKET_HEADER_TOP_COMBOS);
 			for(ComboRating cr : topList) {
-				resp.writeByte(SERVER_PACKET_HEADER_TOP_COMBOS);
+				
 				resp.writeByte(cr.getFlavor1());
 				resp.writeByte(cr.getFlavor2());
 				resp.writeInt(cr.getTotalRating());
