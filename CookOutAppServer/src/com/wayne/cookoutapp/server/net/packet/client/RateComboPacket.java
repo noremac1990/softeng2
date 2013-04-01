@@ -17,8 +17,8 @@ public class RateComboPacket extends ClientPacket {
 		if (data.length != 4)
 			return new BadPacket();
 
-		int flavor1 = data[1];
-		int flavor2 = data[2];
+		byte flavor1 = data[1];
+		byte flavor2 = data[2];
 		byte rating = data[3];
 		
 		try {
@@ -32,7 +32,7 @@ public class RateComboPacket extends ClientPacket {
 			Map<Integer, String> flavors = CookOutAppServer.getDatabase()
 					.getFlavors();
 
-			if (flavors.get(flavor1) == null || flavors.get(flavor2) == null)
+			if (flavors.get(Integer.valueOf(flavor1)) == null || flavors.get(Integer.valueOf(flavor2)) == null)
 				return new ErrorMessagePacket("Flavors don't exist.");
 			
 			CookOutAppServer.getDatabase().rateCombo(

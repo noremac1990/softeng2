@@ -184,10 +184,10 @@ public class CookOutAppConsoleClient {
 		
 		dis.readByte();
 		
-		int timesRated = dis.readInt();
 		int totalRating = dis.readInt();
+		int timesRated = dis.readInt();
 		
-		System.out.printf("times rated: %d total rating: %d rating: %f", timesRated,
+		System.out.printf("times rated: %d total rating: %d rating: %f%n", timesRated,
 				totalRating, (double) totalRating / timesRated);
 		
 	}
